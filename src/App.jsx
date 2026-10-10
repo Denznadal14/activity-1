@@ -48,8 +48,8 @@ export default function App() {
   );
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6 font-sans">
-      <main className="mx-auto mt-10 max-w-md rounded-xl bg-white p-6 shadow-lg">
+    <div className="min-h-screen bg-linear-to-br from-indigo-500 to-purple-600 p-6 font-sans">
+      <main className="mx-auto mt-10 max-w-md rounded-2xl bg-white p-6 shadow-2xl">
         <header className="mb-6 text-center">
           <h1 className="text-3xl font-bold text-indigo-600">My Tasks</h1>
           <p className="text-sm text-gray-500">Created by Denz Matthew Nadal</p>
