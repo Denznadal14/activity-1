@@ -50,7 +50,10 @@ export default function App() {
   return (
     <div className="min-h-screen bg-gray-100 p-6 font-sans">
       <main className="mx-auto mt-10 max-w-md rounded-xl bg-white p-6 shadow-lg">
-        <h1 className="mb-4 text-3xl font-bold">My Tasks</h1>
+        <header className="mb-6 text-center">
+          <h1 className="text-3xl font-bold text-indigo-600">My Tasks</h1>
+          <p className="text-sm text-gray-500">Created by Denz Matthew Nadal</p>
+        </header>
         <div className="mb-4 flex gap-2">
           <input
             className="flex-1 rounded-md border border-gray-300 p-2.5"
