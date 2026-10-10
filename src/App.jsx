@@ -1,11 +1,20 @@
 import { useState } from "react";
-import "./App.css";
+
+const btn =
+  "cursor-pointer rounded-md bg-indigo-600 px-3.5 py-2.5 text-white hover:bg-indigo-700";
 
 function TaskItem({ task, onToggle, onDelete }) {
   return (
-    <li className={task.done ? "task done" : "task"}>
-      <span onClick={() => onToggle(task.id)}>{task.text}</span>
-      <button onClick={() => onDelete(task.id)}>✕</button>
+    <li className="flex items-center justify-between border-b border-gray-100 p-2.5">
+      <span
+        onClick={() => onToggle(task.id)}
+        className={`cursor-pointer ${task.done ? "line-through opacity-50" : ""}`}
+      >
+        {task.text}
+      </span>
+      <button className={btn} onClick={() => onDelete(task.id)}>
+        ✕
+      </button>
     </li>
   );
 }
@@ -27,26 +36,34 @@ export default function App() {
 
   const clearCompleted = () => setTasks(tasks.filter((t) => !t.done));
 
-
   return (
-    <main className="app">
-      <h1>My Tasks</h1>
-      <div className="input-row">
-        <input
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && addTask()}
-          placeholder="Add a task..."
-        />
-        <button onClick={addTask}>Add</button>
-      </div>
-      <ul>
-        {tasks.map((t) => (
-          <TaskItem key={t.id} task={t} onToggle={toggle} onDelete={remove} />
-        ))}
-            </ul>
-      <p>{tasks.filter((t) => !t.done).length} remaining</p>
-      <button onClick={clearCompleted}>Clear completed</button>
-    </main>
+    <div className="min-h-screen bg-gray-100 p-6 font-sans">
+      <main className="mx-auto mt-10 max-w-md rounded-xl bg-white p-6 shadow-lg">
+        <h1 className="mb-4 text-3xl font-bold">My Tasks</h1>
+        <div className="mb-4 flex gap-2">
+          <input
+            className="flex-1 rounded-md border border-gray-300 p-2.5"
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && addTask()}
+            placeholder="Add a task..."
+          />
+          <button className={btn} onClick={addTask}>
+            Add
+          </button>
+        </div>
+        <ul>
+          {tasks.map((t) => (
+            <TaskItem key={t.id} task={t} onToggle={toggle} onDelete={remove} />
+          ))}
+        </ul>
+        <p className="my-3 text-gray-600">
+          {tasks.filter((t) => !t.done).length} remaining
+        </p>
+        <button className={btn} onClick={clearCompleted}>
+          Clear completed
+        </button>
+      </main>
+    </div>
   );
 }
