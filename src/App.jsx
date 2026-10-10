@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const btn =
   "cursor-pointer rounded-md bg-indigo-600 px-3.5 py-2.5 text-white hover:bg-indigo-700";
@@ -20,7 +20,14 @@ function TaskItem({ task, onToggle, onDelete }) {
 }
 
 export default function App() {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState(() => {
+    const saved = localStorage.getItem("tasks");
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
   const [text, setText] = useState("");
   const [filter, setFilter] = useState("all");
 
