@@ -22,6 +22,7 @@ function TaskItem({ task, onToggle, onDelete }) {
 export default function App() {
   const [tasks, setTasks] = useState([]);
   const [text, setText] = useState("");
+  const [filter, setFilter] = useState("all");
 
   const addTask = () => {
     if (!text.trim()) return;
@@ -35,6 +36,9 @@ export default function App() {
   const remove = (id) => setTasks(tasks.filter((t) => t.id !== id));
 
   const clearCompleted = () => setTasks(tasks.filter((t) => !t.done));
+  const visibleTasks = tasks.filter((t) =>
+    filter === "all" ? true : filter === "active" ? !t.done : t.done
+  );
 
   return (
     <div className="min-h-screen bg-gray-100 p-6 font-sans">
@@ -52,8 +56,20 @@ export default function App() {
             Add
           </button>
         </div>
+        <div className="mb-2 flex gap-2">
+          {["all", "active", "completed"].map((f) => (
+            <button
+              key={f}
+              onClick={() => setFilter(f)}
+              className={`cursor-pointer rounded-md px-3 py-1 text-sm capitalize ${filter === f ? "bg-indigo-600 text-white" : "bg-gray-200"
+                }`}
+            >
+              {f}
+            </button>
+          ))}
+        </div>
         <ul>
-          {tasks.map((t) => (
+          {visibleTasks.map((t) => (
             <TaskItem key={t.id} task={t} onToggle={toggle} onDelete={remove} />
           ))}
         </ul>
